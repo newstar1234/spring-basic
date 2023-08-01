@@ -1,5 +1,9 @@
 package com.newstar.basic.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -54,7 +58,7 @@ public class MainController {
         return "delete method";
     }
 
-    // description : @PatchVariable - path 자체를 변수의 값으로 인식 //
+    // description : @PathVariable - path 자체를 변수의 값으로 인식 //
     // description : {variable} 로 표현 -> @PathVariable("variable") //
     @GetMapping("/path-variable/{value}")
     public String getPathVariable(@PathVariable("value") String val) {
@@ -68,21 +72,27 @@ public class MainController {
     public String getParameter(
         @RequestParam("name") String name,
         @RequestParam("age") int age
-        ) {
+    ) {
         return "이름 : " + name+ " " + "나이 : " + age;
-        }
+    }
 
     // description : @RequestBody - Request Body에 포함된 데이터를 받아옴, 문자열 혹은 객체로 받을 수 있음 //
     // description : 요청시 일반적으로 JSON 형태로 Request Body를 전송 //
     // description : @RequestBody //
-    @PostMapping("/request-body")   
+    @PostMapping("/request-body")  
     public String postRequestBody(
         // description : 문자열 //
         // @RequestBody String requestBody
         // description : JSON(객체) //
-        @RequestBody PostRequestBodyDto requestBody
-        ) {
+        @RequestBody @Valid PostRequestBodyDto requestBody
+    ) {
         return "입력한 Request Body는" + requestBody.getName() + "입니다.";
     }     
+
+    // description : Response Entity - Response의 상태 및 헤더, 본문을 직접 제어할 수 있는 클래스 //
+    @GetMapping("/response-entity") //! 반환에 관한 것 / 제너릭 지정해줘야함(보통 DTO 객체로 지정)
+    public ResponseEntity<String> getResponseEntity() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Response Entity");
+    }  
 
 }

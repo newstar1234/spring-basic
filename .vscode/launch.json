@@ -15,6 +15,16 @@
             "projectName": "demo",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BasicApplication<basic>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.newstar.basic.BasicApplication",
+            "projectName": "basic",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

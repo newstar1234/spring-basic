@@ -1,0 +1,3 @@
+클라이언트의 요청 응답 / req,res / 프레젠테이션 / controller
+비즈니스 계층 / service
+데이터 접근계층 / repository
