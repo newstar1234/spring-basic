@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newstar.basic.dto.request.PostRequestBodyDto;
+import com.newstar.basic.service.MainService;
+import com.newstar.basic.service.implement.MainServiceImplement;
 
 // description : Controller - 레이어드 아키텍처 상의 프레젠테이션 영역 //
 // description : 사용자로부터 입력을 받고 서비스 결과를 반환하는 영역 //
@@ -27,11 +29,19 @@ import com.newstar.basic.dto.request.PostRequestBodyDto;
 // description : 예) http://localhost:8080 //
 @RequestMapping("")
 public class MainController {
+
+    // private MainService mainService = new MainServiceImplement(); //? 내부에서 인스턴스 생성 // 
+    
+    private MainService mainService; //? 외부에서 주입 -> 생성자 혹은 setter // 
+
+    public MainController(MainService mainService) {
+        this.mainService = mainService;
+    }
     
     // description : @RequestMapping 중 GET method에 대해서만 인식 //
     @GetMapping("/")
     public String getMethod() {
-        return "get method";
+        return mainService.hello();
     }
     
     // description : @RequestMapping 중 POST method에 대해서만 인식 //
