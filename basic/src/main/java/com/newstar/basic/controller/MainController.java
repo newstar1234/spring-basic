@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -127,4 +128,13 @@ public class MainController {
         String subject = jwtProvider.validate(jwt);
         return subject;
     }
+
+    // description : 사용자 인증 정보에 접근하는 데 사용되는 어노테이션(@AuthenticationPrincipal) //
+    @PostMapping("/principal")
+    public String principal (
+        @AuthenticationPrincipal String subject
+    ) {
+        return "토큰에 포함된 subject는 " + subject + "입니다.";
+    }
+
 }
