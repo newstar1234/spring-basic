@@ -137,4 +137,21 @@ public class MainController {
         return "토큰에 포함된 subject는 " + subject + "입니다.";
     }
 
+    @GetMapping("/encode-password/{password}")
+    public String encodePassword(
+        @PathVariable("password") String password
+    ) {
+        String encodedPassword = mainService.getPasswordEncoding(password);
+        return encodedPassword;
+    }
+
+    @PostMapping("/auth/match")
+    public boolean isMatched(
+        @RequestParam("password") String password,
+        @RequestParam("encodedPassword") String encodedPassword
+    ) {
+        boolean isPasswordMatch = mainService.isPasswordMatch(password, encodedPassword);
+        return isPasswordMatch;
+    }
+
 }

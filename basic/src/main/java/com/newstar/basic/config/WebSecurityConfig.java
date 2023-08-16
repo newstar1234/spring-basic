@@ -36,11 +36,11 @@ public class WebSecurityConfig {
             // description : API의 URL 패턴에 따라 인증 여부 지정 //
             .authorizeRequests()
             // description : 특정 패턴에 대해서 인증없이 진행 가능하도록 허용 //
-            .antMatchers("/").permitAll()
+            .antMatchers("/", "/auth/match").permitAll()
             // description : 특정 메서드에 대하여 인증없이 진행 가능하도록 허용 //
             .antMatchers(HttpMethod.GET).permitAll()
             // description : 특정 메서드에 해당하는 특정 패턴에 대하여 인증없이 진행 가능하도록 허용 //
-            .antMatchers(HttpMethod.POST, "/sign-in").permitAll()
+            .antMatchers(HttpMethod.POST, "/sign-in","/sign-up").permitAll()
             // description : 나머지 요청에 대하여 인증을 필수로 진행하도록 설정 //
             .anyRequest().authenticated();
 
