@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newstar.basic.dto.request.PostRequestBodyDto;
+import com.newstar.basic.provider.JwtProvider;
 import com.newstar.basic.service.MainService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,8 @@ public class MainController {
     // description : 생성자를 통한 의존성 주입은 @Autowired를 지정할 필요가 없음 //
     // description : 멤버 변수를 필수 변수(final)로 지정하여 Lombok의 @RequiredArgsConstructor로 쉽게 DI 할 수 있음//
     private final MainService mainService;  
+
+    private final JwtProvider jwtProvider;
 
     // description : @RequestMapping 중 GET method에 대해서만 인식 //
     @GetMapping("/")
@@ -107,4 +110,21 @@ public class MainController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Response Entity");
     }  
 
+    // description : JWT 생성 //
+    @GetMapping("/jwt/{sub}")
+    public String getJwt(
+        @PathVariable("sub") String sub
+    ){
+        String jwt = jwtProvider.create(sub);
+        return jwt;
+    }
+
+    // description : JWT 검증 //
+    @PostMapping("/jwt")
+    public String validateJwt(
+        @RequestParam("jwt") String jwt
+    ) {
+        String subject = jwtProvider.validate(jwt);
+        return subject;
+    }
 }
