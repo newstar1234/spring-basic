@@ -22,6 +22,7 @@ public class WebSecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // description : Security Filter 설정 변경 //
+    // 함수를 올리는 것이기 때문에 @Bean으로 등록함 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
